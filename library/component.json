@@ -1,0 +1,19 @@
+{
+	"name" : "library",
+	"version" : "0.0.1",
+	"description" : "misc physics library classes",
+	"main" : "index.js",
+	"scripts" : [ 
+		"renderer.js", 
+		"device.js",
+		"binding.js",
+		"bindingStrategies/TouchToSpin.js",
+		"bindingStrategies/MotionToImpulseBasic.js",
+		"bindingStrategies/TouchToJump.js",
+		"sandbox.js",
+		"index.js"
+	],
+	"dependencies" : {
+		"matthewmueller/io" : "*"
+   }
+}
