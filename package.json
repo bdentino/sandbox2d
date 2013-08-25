@@ -1,0 +1,11 @@
+{
+	"name" : "sb2dApp",
+	"description" : "session management app for sandbox2d",
+	"version" : "0.0.1",
+	"private" : true,
+	"dependencies" : {
+		"express" : "3.3.5",
+		"node-polyglot" : "0.3.0",
+		"uid" : "*",
+	}
+}

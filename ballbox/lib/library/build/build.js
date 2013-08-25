@@ -3805,14 +3805,14 @@ Sandbox.prototype.buildWalls = function() {
 }
 });
 require.register("library/index.js", function(exports, require, module){
-exports.Binding = ('./binding');
-exports.Device = ('./device');
-exports.Renderer = ('./renderer');
-exports.Sandbox = ('./sandbox');
+exports.Binding = require('./binding');
+exports.Device = require('./device');
+exports.Renderer = require('./renderer');
+exports.Sandbox = require('./sandbox');
 
-exports.MotionToImpulseBasic = ('./bindingStrategies/MotionToImpulseBasic');
-exports.TouchToJump = ('./bindingStrategies/TouchToJump');
-exports.TouchToSpin = ('./bindingStrategies/TouchToSpin');
+exports.MotionToImpulseBasic = require('./bindingStrategies/MotionToImpulseBasic');
+exports.TouchToJump = require('./bindingStrategies/TouchToJump');
+exports.TouchToSpin = require('./bindingStrategies/TouchToSpin');
 });
 require.alias("matthewmueller-io/index.js", "library/deps/io/index.js");
 require.alias("component-emitter/index.js", "matthewmueller-io/deps/emitter/index.js");

@@ -3,8 +3,8 @@
 	"version" : "0.0.1",
 	"description" : "balls to the walls sandbox for testing bindings",
 	"main" : "ballBox.js",
-	"paths" : [ "library" ],
-	"locals" : [ "library" ],
+	"paths" : [ "lib" ],
+	"local" : [ "library" ],
 	"scripts" : [ 
 		"box2d/Box2dWeb-2.1.a.3.min.js", 
 		"ball.js",
@@ -12,6 +12,7 @@
 	],
 	"styles" : [ "ballBox.css" ],
 	"dependencies" : {
-		"matthewmueller/io" : "*"
+		"matthewmueller/io" : "*",
+		"matthewmueller/qr-code" : "*"
    }
 }

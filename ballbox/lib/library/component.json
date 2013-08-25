@@ -1,6 +1,6 @@
 {
 	"name" : "library",
-	"version" : "0.0.1",
+	"repo" : "bdentino/library",
 	"description" : "misc physics library classes",
 	"main" : "index.js",
 	"scripts" : [ 

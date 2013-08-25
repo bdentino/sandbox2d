@@ -3,3 +3,5 @@
 html, body { width:100%; height:100%; } /* just to be sure these are full screen*/
 
 canvas { margins: 0; } /* To remove the scrollbars */
+
+img { position: absolute; top: 0px; left: 0px; }

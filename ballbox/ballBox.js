@@ -1,12 +1,13 @@
 var Ball = require('./ball');
+var Library = require('library');
 
-var RemoteDevice   = require('./library/device');
-var Binding 	   = require('./library/binding');
-var TouchToSpin    = require('./library/bindingStrategies/TouchToSpin');
-var MotionStrategy = require('./library/bindingStrategies/MotionToImpulseBasic');
-var TouchToJump    = require('./library/bindingStrategies/TouchToJump');
+var RemoteDevice   = Library.Device;
+var Binding 	   = Library.Binding;
+var TouchToSpin    = Library.TouchToSpin;
+var MotionStrategy = Library.MotionToImpulseBasic;
+var TouchToJump    = Library.TouchToJump;
 
-var SandBox		   = require('./library/sandbox');
+var SandBox		   = Library.Sandbox;
 
 var lastFrame = new Date().getTime();
 
@@ -27,6 +28,13 @@ window.gameLoop = function() {
 };
 
 function init() {
+
+	var qr = require('qr-code');
+	var dataURI = qr('http://www.google.com');
+	var img = new Image();
+	img.src = dataURI;
+	document.body.appendChild(img);
+
 	var canvas = document.getElementById('sandbox');
 	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight;
@@ -44,7 +52,7 @@ function init() {
 }
 
 function debugStep() {
-	if (ball.debugData !== '') console.log(ball.debugData);
+	//if (ball.debugData && ball.debugData !== '') console.log(ball.debugData);
 	//console.log(ball.b2Body.GetLinearVelocity().y);
 };
 

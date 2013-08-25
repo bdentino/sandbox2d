@@ -26,36 +26,40 @@ function MotionToImpulseBasic(body, device) {
 MotionToImpulseBasic.prototype.moveBody = function(eventData) {
 	var accel = eventData.acceleration;
 	var b2Body = this.body.b2Body;
-	var energy = quadSum(accel.z);
+	var energy = quadSum(accel.z, accel.x);
 	this.body.debugData = '';
 
-	// if (Math.abs(accel.z) > 2) {
-	// 	console.log('energy = ' + (energy | 0) + 
-	// 		';  accel.z = ' + (accel.z | 0) + 
-	// 		';  upDown = ' + this.upDown);
-	// }
 	if (energy < 5) {
 		// phone is not moving...make the body slow down and stop controlling
 		b2Body.m_linearDamping = 1.5;
+		b2Body.m_angularDamping = 1.5;
 		if (this.upDown != 0)
 			this.upDown = (Math.abs(this.upDown) - 1) * (Math.abs(this.upDown) / this.upDown);
+		if (this.leftRight != 0)
+			this.leftRight = (Math.abs(this.leftRight) - 1) * (Math.abs(this.leftRight) / this.leftRight);
 		return;
 	}
 
-	if (accel.z > 0) { this.upDown = Math.min(this.upDown + 1, maxMemory); }
-	if (accel.z < 0) { this.upDown = Math.max(this.upDown - 1, -maxMemory); }
+	if (accel.z > 0) { this.upDown = this.upDown + 1; }
+	if (accel.z < 0) { this.upDown = this.upDown - 1; }
 
 	if (accel.z > 0 && this.upDown < 0) return; //filter out noise
 	if (accel.z < 0 && this.upDown > 0) return; //filter out noise
 
-	var impulse = new b2Vec2(accel.x / 10.0, accel.z / 10.0);
-	impulse.x = 0;
+	if (accel.x > 0) { this.leftRight = this.leftRight + 1; }
+	if (accel.x < 0) { this.leftRight = this.leftRight - 1; }
+
+	if (accel.x > 0 && this.leftRight < 0) return; //filter out noise
+	if (accel.x < 0 && this.leftRight > 0) return; //filter out noise
+
+	var impulse = new b2Vec2(accel.x / -.1, accel.z / .1);
+	impulse.x = impulse.x;
 	impulse.y = impulse.y;
 
-	if (impulse.y > 0) this.body.debugData = 'moving down: ' + ((impulse.y * 10) | 0);
-	if (impulse.y < 0) this.body.debugData = 'moving up:   ' + ((impulse.y * 10) | 0);
+	if (impulse.x > 0) this.body.debugData = 'moving right: ' + ((impulse.x * 10) | 0);
+	if (impulse.x < 0) this.body.debugData = 'moving left:   ' + ((impulse.x * 10) | 0);
 
-	b2Body.ApplyImpulse(impulse, b2Body.GetWorldCenter());
+	b2Body.ApplyForce(impulse, b2Body.GetWorldCenter());
 }
 
 var quadSum = function() {
