@@ -7,5 +7,10 @@
 		"express" : "3.3.5",
 		"node-polyglot" : "0.3.0",
 		"uid" : "*",
-	}
+        "express-device" : "*",
+        "jade" : "*"
+	},
+    "devDependencies" : {
+        "nodemon" : "*"
+    }
 }

@@ -3,15 +3,16 @@ var Binding = require('./binding');
 
 module.exports = Device;
 
-function Device(room,id) {
+function Device(roomSocket,id) {
 	if (!(this instanceof Device)) return new Device(id);
-	this.socket = IO('http://ws.mat.io:80/'+room+'/').channel(id);
+    this.broadcast = roomSocket;
+	this.socket = roomSocket.channel(id);
 
 	window.addEventListener('deviceorientation', this.onRotation.bind(this));
 	window.addEventListener('touchstart', this.onTouchStart.bind(this));
 	window.addEventListener('touchend', this.onTouchEnd.bind(this));
 	window.addEventListener('devicemotion', this.onMotion.bind(this));
-};
+}
 
 //Local Device//
 

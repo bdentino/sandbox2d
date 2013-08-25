@@ -1,17 +1,19 @@
 var Ball = require('./ball');
 var Library = require('library');
+var IO = require('io');
 
 var RemoteDevice   = Library.Device;
-var Binding 	   = Library.Binding;
+var Binding        = Library.Binding;
 var TouchToSpin    = Library.TouchToSpin;
 var MotionStrategy = Library.MotionToImpulseBasic;
 var TouchToJump    = Library.TouchToJump;
 
-var SandBox		   = Library.Sandbox;
+var SandBox        = Library.Sandbox;
 
 var lastFrame = new Date().getTime();
 
 var sandbox;
+var sandboxSocket;
 var device;
 var ball;
 var basicBinding = new Binding();
@@ -28,13 +30,10 @@ window.gameLoop = function() {
 };
 
 function init() {
-
-	var qr = require('qr-code');
-	var dataURI = qr('http://www.google.com');
-	var img = new Image();
-	img.src = dataURI;
-	document.body.appendChild(img);
-
+    if (sandboxId !== undefined) {
+        sandboxSocket = IO('http://ws.mat.io:80/' + sandboxId + "/");
+        sandboxSocket.on('deviceConnect', addDevice);
+    }
 	var canvas = document.getElementById('sandbox');
 	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight;
@@ -42,19 +41,29 @@ function init() {
 	sandbox.debug(true);
 	sandbox.onDebugStep = debugStep;
 
-	device = new RemoteDevice('ballBox','ballController');
+	requestAnimationFrame(gameLoop);
+}
+
+function addDevice(device) {
+    device = new RemoteDevice(sandboxSocket, device.id);
 	ball = new Ball();
 
 	sandbox.addBody(ball);
 	basicBinding.bindBodyToDevice(ball, device);
+}
 
-	requestAnimationFrame(gameLoop);
+function setupQR() {
+    var qr = require('qr-code');
+    var dataURI = qr('http://www.google.com');
+	var img = new Image();
+	img.src = dataURI;
+	document.body.appendChild(img);
 }
 
 function debugStep() {
 	//if (ball.debugData && ball.debugData !== '') console.log(ball.debugData);
 	//console.log(ball.b2Body.GetLinearVelocity().y);
-};
+}
 
 window.addEventListener("load", init);
 
