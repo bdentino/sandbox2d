@@ -1,4 +1,6 @@
 script.
     var deviceId = '#{deviceId}'
+    var sandboxId = '#{sandboxId}'
 
-h1= deviceId
+include device.js
+h1 Hello #{deviceId}! Welcome to sandbox #{sandboxId}!

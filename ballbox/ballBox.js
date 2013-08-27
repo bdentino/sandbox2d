@@ -45,6 +45,7 @@ function init() {
 }
 
 function addDevice(device) {
+    console.log('sandbox received device ' + device.id + '\'s connection message');
     device = new RemoteDevice(sandboxSocket, device.id);
 	ball = new Ball();
 

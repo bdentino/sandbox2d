@@ -40,12 +40,12 @@ app.get('/sandbox/:id', function(req, res) {
     else if (req.device.type === 'phone' || req.device.type === 'tablet') {
         var deviceId = getNextDeviceIdForSandbox(req.params.id);
         console.log('connecting device ' + deviceId);
-        res.render('device', { 'deviceId' : deviceId });
+        res.render('device', { 'deviceId' : deviceId, 'sandboxId' : req.params.id });
         return;
     }
     else {
         body = translator.t('deviceNotSupported', { 
-            _ : 'Sorry, but sandbox2d does not yet support the device you are trying to connect from.' 
+            _ : 'Sorry, but sandbox2d does not yet support the type of device from which you are trying to connect.' 
         });
     }
 	res.setHeader('Content-Type', 'text/plain');
